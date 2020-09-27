@@ -2,4 +2,4 @@
 
 This library contains general helpers that I use in my Clojure/script projects.
 
-Check API docs at 
+Check API docs at http://cljdoc.org/d/com.wsscode/cljc-misc.
