@@ -128,6 +128,21 @@
      :else
      b)))
 
+(defn merge-defaults*
+  ([a] a)
+  ([a _b] a))
+
+(defn merge-defaults
+  "Like merge, but only add keys that are not present in the original map."
+  [m defaults]
+  (reduce-kv
+    (fn [m k v]
+      (if (contains? m k)
+        m
+        (assoc m k v)))
+    m
+    defaults))
+
 (defn native-map? [x]
   #?(:clj  (or (instance? clojure.lang.PersistentArrayMap x)
                (instance? clojure.lang.PersistentHashMap x))

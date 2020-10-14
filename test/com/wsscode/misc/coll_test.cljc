@@ -93,6 +93,12 @@
     (is (= (coll/merge-grow {:foo {:a 1}} {:foo {:a nil}})
            {:foo {:a 1}}))))
 
+(deftest merge-defaults-test
+  (is (= (coll/merge-defaults {:a 1} {:b 2})
+         {:a 1 :b 2}))
+  (is (= (coll/merge-defaults {:a 1} {:a 2})
+         {:a 1})))
+
 (defrecord CustomRecord [])
 
 (deftest native-map?-test
