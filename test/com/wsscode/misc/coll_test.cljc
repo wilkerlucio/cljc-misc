@@ -69,6 +69,22 @@
   (is (= (coll/map-keys inc {1 :a 2 :b})
          {2 :a 3 :b})))
 
+(deftest filter-keys-test
+  (is (= (coll/filter-keys simple-keyword? {1 :a 2 :b "foo" 3 :bar 4})
+         {:bar 4})))
+
+(deftest filter-vals-test
+  (is (= (coll/filter-vals simple-keyword? {1 :a 2 :b "foo" 3 :bar 4})
+         {1 :a 2 :b})))
+
+(deftest remove-keys-test
+  (is (= (coll/remove-keys number? {1 :a 2 :b "foo" 3 :bar 4})
+         {"foo" 3 :bar 4})))
+
+(deftest remove-vals-test
+  (is (= (coll/remove-vals number? {1 :a 2 :b "foo" 3 :bar 4})
+         {1 :a 2 :b})))
+
 (deftest map-vals-test
   (is (= (coll/map-vals inc {:a 1 :b 2})
          {:a 2 :b 3})))

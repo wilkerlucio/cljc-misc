@@ -98,6 +98,22 @@
   [f m]
   (into {} (map (fn [x] (make-map-entry (key x) (f (val x))))) m))
 
+(defn filter-keys
+  [f m]
+  (into {} (filter (comp f key)) m))
+
+(defn filter-vals
+  [f m]
+  (into {} (filter (comp f val)) m))
+
+(defn remove-keys
+  [f m]
+  (into {} (remove (comp f key)) m))
+
+(defn remove-vals
+  [f m]
+  (into {} (remove (comp f val)) m))
+
 (defn keys-set
   "Return the map keys, as a set. This also checks if the entry is a map, otherwise
   returns nil (instead of throw)."
