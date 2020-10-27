@@ -115,6 +115,22 @@
   (is (= (coll/merge-defaults {:a 1} {:a 2})
          {:a 1})))
 
+(deftest update-contained-test
+  (is (= (coll/update-contained {:foo 3} :foo inc)
+         {:foo 4}))
+  (is (= (coll/update-contained {:foo nil} :foo #(str % " bla"))
+         {:foo " bla"}))
+  (is (= (coll/update-contained {} :foo inc)
+         {})))
+
+(deftest update-if-test
+  (is (= (coll/update-if {:foo 3} :foo inc)
+         {:foo 4}))
+  (is (= (coll/update-if {:foo nil} :foo inc)
+         {:foo nil}))
+  (is (= (coll/update-if {} :foo inc)
+         {})))
+
 (defrecord CustomRecord [])
 
 (deftest native-map?-test

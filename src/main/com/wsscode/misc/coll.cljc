@@ -144,10 +144,6 @@
      :else
      b)))
 
-(defn merge-defaults*
-  ([a] a)
-  ([a _b] a))
-
 (defn merge-defaults
   "Like merge, but only add keys that are not present in the original map."
   [m defaults]
@@ -158,6 +154,52 @@
         (assoc m k v)))
     m
     defaults))
+
+(defn update-contained
+  "Update some key when that key is present in the map."
+  ([m k f]
+   (if (contains? m k)
+     (update m k f)
+     m))
+  ([m k f a1]
+   (if (contains? m k)
+     (update m k f a1)
+     m))
+  ([m k f a1 a2]
+   (if (contains? m k)
+     (update m k f a1 a2)
+     m))
+  ([m k f a1 a2 a3]
+   (if (contains? m k)
+     (update m k f a1 a2 a3)
+     m))
+  ([m k f a1 a2 a3 & args]
+   (if (contains? m k)
+     (apply update m k f a1 a2 a3 args)
+     m)))
+
+(defn update-if
+  "Update some key that key is present in the map and value is truthy."
+  ([m k f]
+   (if (get m k)
+     (update m k f)
+     m))
+  ([m k f a1]
+   (if (get m k)
+     (update m k f a1)
+     m))
+  ([m k f a1 a2]
+   (if (get m k)
+     (update m k f a1 a2)
+     m))
+  ([m k f a1 a2 a3]
+   (if (get m k)
+     (update m k f a1 a2 a3)
+     m))
+  ([m k f a1 a2 a3 & args]
+   (if (get m k)
+     (apply update m k f a1 a2 a3 args)
+     m)))
 
 (defn native-map? [x]
   #?(:clj  (or (instance? clojure.lang.PersistentArrayMap x)
