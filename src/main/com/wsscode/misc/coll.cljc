@@ -206,3 +206,15 @@
                (instance? clojure.lang.PersistentHashMap x))
      :cljs (or (instance? cljs.core/PersistentArrayMap x)
                (instance? cljs.core/PersistentHashMap x))))
+
+(defn restore-order
+  "Sorts output list to match input list order."
+  ([inputs key items]
+   (restore-order inputs key items #(hash-map key (get % key))))
+  ([inputs key items default-fn]
+   (let [index (index-by key items)]
+     (into []
+           (map (fn [input]
+                  (or (get index (get input key))
+                      (default-fn input))))
+           inputs))))
