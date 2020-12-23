@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add `floor`, `ceil` and `divmod` helpers to `math`
+
 ## 2020.12.21
 - Add `sleep-ms` helper to `time` namespace
 
