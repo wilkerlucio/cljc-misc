@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 2020.12.23
 - Add `floor`, `ceil` and `divmod` helpers to `math`
 
 ## 2020.12.21
