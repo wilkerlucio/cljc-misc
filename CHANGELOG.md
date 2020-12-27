@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add macros namespace with `full-symbol` helper
+
 ## 2020.12.23
 - Add `floor`, `ceil` and `divmod` helpers to `math`
 
