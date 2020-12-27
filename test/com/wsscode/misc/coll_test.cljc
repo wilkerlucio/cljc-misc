@@ -188,3 +188,11 @@
          [:a :c :b]))
   (is (= (coll/conj-at-index [:a :b] 2 :c)
          [:a :b :c])))
+
+(deftest index-of-test
+  (is (= (coll/index-of [:a {:id :b} :c] :not-here)
+         nil))
+  (is (= (coll/index-of [:a {:id :b} :c] :a)
+         0))
+  (is (= (coll/index-of [:a {:id :b} :c] {:id :b})
+         1)))

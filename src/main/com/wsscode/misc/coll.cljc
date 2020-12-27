@@ -71,6 +71,16 @@
         after  (subvec v idx (count v))]
     (into [] (concat before [x] after))))
 
+(defn index-of
+  "Find the index of element x in coll. Return nil if element is not found."
+  [coll x]
+  (reduce
+    (fn [_ [i x']]
+      (if (= x x')
+        (reduced i)))
+    nil
+    (map-indexed vector coll)))
+
 (defn queue
   "Return a blank immutable queue or create one from coll."
   ([] #?(:clj  clojure.lang.PersistentQueue/EMPTY

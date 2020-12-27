@@ -3,6 +3,7 @@
 ## Next
 - Add macros namespace with `full-symbol` helper
 - Add `conj-at-index` to `collections` namespace
+- Add `index-of` to `collections` namespace
 
 ## 2020.12.23
 - Add `floor`, `ceil` and `divmod` helpers to `math`
