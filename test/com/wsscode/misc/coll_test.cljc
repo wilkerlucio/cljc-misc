@@ -180,3 +180,11 @@
            :my.entity/color nil}
           {:my.entity/id    3
            :my.entity/color :my.entity.color/green}])))
+
+(deftest conj-at-index-test
+  (is (= (coll/conj-at-index [:a :b] 0 :c)
+         [:c :a :b]))
+  (is (= (coll/conj-at-index [:a :b] 1 :c)
+         [:a :c :b]))
+  (is (= (coll/conj-at-index [:a :b] 2 :c)
+         [:a :b :c])))

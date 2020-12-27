@@ -64,6 +64,13 @@
 (def sconj (fnil conj #{}))
 (def vconj (fnil conj []))
 
+(defn conj-at-index
+  "Add element to a vector at some specific index. Only works with vectors!"
+  [v idx x]
+  (let [before (subvec v 0 idx)
+        after  (subvec v idx (count v))]
+    (into [] (concat before [x] after))))
+
 (defn queue
   "Return a blank immutable queue or create one from coll."
   ([] #?(:clj  clojure.lang.PersistentQueue/EMPTY
