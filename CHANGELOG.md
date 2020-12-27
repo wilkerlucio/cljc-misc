@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 2020.12.27
 - Add macros namespace with `full-symbol` helper
 - Add `conj-at-index` to `collections` namespace
 - Add `index-of` to `collections` namespace
