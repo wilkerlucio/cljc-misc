@@ -1,6 +1,7 @@
 (ns com.wsscode.misc.macros-test
-  (:require [clojure.test :refer [deftest is are run-tests testing]]
-            [com.wsscode.misc.macros :as macros]))
+  (:require
+    [clojure.test :refer [deftest is are run-tests testing]]
+    [com.wsscode.misc.macros :as macros]))
 
 (deftest full-symbol-test
   (is (= (macros/full-symbol
