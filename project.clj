@@ -1,4 +1,4 @@
-(defproject com.wsscode/cljc-misc "2020.12.27"
+(defproject com.wsscode/cljc-misc "2021.01.09"
   :description "Collection of general utils for Clojure and Clojurescript."
   :url "https://github.com/wilkerlucio/cljc-misc"
   :license {:name "MIT"

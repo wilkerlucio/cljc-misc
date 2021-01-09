@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 2021.01.09
 - Add `assoc-if` to `collections` namespace
 
 ## 2020.12.27
