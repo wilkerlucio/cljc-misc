@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add `assoc-if` to `collections` namespace
+
 ## 2020.12.27
 - Add macros namespace with `full-symbol` helper
 - Add `conj-at-index` to `collections` namespace

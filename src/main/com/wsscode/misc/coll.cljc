@@ -172,6 +172,18 @@
     m
     defaults))
 
+(defn assoc-if
+  "Like assoc, but noop if v is falsy."
+  ([m k v]
+   (if v
+     (assoc m k v)
+     m))
+  ([m k v & kvs]
+   (let [ret (assoc-if m k v)]
+     (if kvs
+       (recur ret (first kvs) (second kvs) (nnext kvs))
+       ret))))
+
 (defn update-contained
   "Update some key when that key is present in the map."
   ([m k f]

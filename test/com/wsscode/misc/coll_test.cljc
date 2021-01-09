@@ -115,6 +115,22 @@
   (is (= (coll/merge-defaults {:a 1} {:a 2})
          {:a 1})))
 
+(deftest assoc-if-test
+  (is (= (coll/assoc-if {} :foo "bar")
+         {:foo "bar"}))
+
+  (is (= (coll/assoc-if {} :foo nil)
+         {}))
+
+  (is (= (coll/assoc-if {} :foo false)
+         {}))
+
+  (is (= (coll/assoc-if {} :foo false :bar 30)
+         {:bar 30}))
+
+  (is (= (coll/assoc-if {} :foo false :bar 30 :baz false)
+         {:bar 30})))
+
 (deftest update-contained-test
   (is (= (coll/update-contained {:foo 3} :foo inc)
          {:foo 4}))
