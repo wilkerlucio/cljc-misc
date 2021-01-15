@@ -4,8 +4,10 @@
   #?(:clj
      (:import
        (clojure.lang
-         MapEntry RT)
-       (java.util Iterator))))
+         MapEntry
+         RT)
+       (java.util
+         Iterator))))
 
 (defn distinct-by
   "Returns a lazy sequence of the elements of coll, removing any elements that
