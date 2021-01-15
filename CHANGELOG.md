@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.01.15
+- Add `iterator` to `collections`
+
 ## 2021.01.09
 - Add `assoc-if` to `collections` namespace
 
