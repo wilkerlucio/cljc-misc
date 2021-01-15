@@ -4,7 +4,8 @@
   #?(:clj
      (:import
        (clojure.lang
-         MapEntry))))
+         MapEntry RT)
+       (java.util Iterator))))
 
 (defn distinct-by
   "Returns a lazy sequence of the elements of coll, removing any elements that
@@ -247,3 +248,9 @@
                   (or (get index (get input key))
                       (default-fn input))))
            inputs))))
+
+(defn iterator
+  "CLJC utility to get an iterator from the collection."
+  [coll]
+  #?(:clj  ^Iterator (RT/iter coll)
+     :cljs ^NodeIterator (-iterator coll)))
