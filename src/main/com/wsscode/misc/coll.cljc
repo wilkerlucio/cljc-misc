@@ -256,3 +256,8 @@
   [coll]
   #?(:clj  ^Iterator (RT/iter coll)
      :cljs ^NodeIterator (-iterator coll)))
+
+(defn coll-append-at-head?
+  "Return true if column add items at head with conj."
+  [s]
+  (not (or (vector? s) (set? s))))

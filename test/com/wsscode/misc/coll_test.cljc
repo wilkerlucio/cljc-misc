@@ -212,3 +212,9 @@
          0))
   (is (= (coll/index-of [:a {:id :b} :c] {:id :b})
          1)))
+
+(deftest coll-append-ahead?-test
+  (is (true? (coll/coll-append-at-head? (list "foo"))))
+  (is (true? (coll/coll-append-at-head? (map identity ["foo"]))))
+  (is (false? (coll/coll-append-at-head? ["foo"])))
+  (is (false? (coll/coll-append-at-head? #{"foo"}))))
