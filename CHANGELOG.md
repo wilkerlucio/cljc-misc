@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.01.18
+- Add `coll-append-at-head?` to `collections` 
+
 ## 2021.01.15
 - Add `iterator` to `collections`
 
