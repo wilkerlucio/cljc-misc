@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 2021.01.21
 - Add `GenericBox` for generic operations on atoms and volatiles
 
 ## 2021.01.18
