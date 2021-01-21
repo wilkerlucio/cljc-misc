@@ -2,8 +2,8 @@
   #?(:clj
      (:import
        (clojure.lang
-         IDeref
          Atom
+         IDeref
          Volatile))))
 
 (defn kw-identical?
