@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add `GenericBox` for generic operations on atoms and volatiles
+
 ## 2021.01.18
 - Add `coll-append-at-head?` to `collections` 
 
