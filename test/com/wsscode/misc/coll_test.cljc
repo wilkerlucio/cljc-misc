@@ -218,3 +218,10 @@
   (is (true? (coll/coll-append-at-head? (map identity ["foo"]))))
   (is (false? (coll/coll-append-at-head? ["foo"])))
   (is (false? (coll/coll-append-at-head? #{"foo"}))))
+
+(deftest collection?-test
+  (is (true? (coll/collection? [])))
+  (is (true? (coll/collection? '())))
+  (is (true? (coll/collection? #{})))
+  (is (true? (coll/collection? (map identity []))))
+  (is (false? (coll/collection? {}))))

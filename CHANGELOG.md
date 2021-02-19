@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.02.18
+- Add `collection?` helper to `collections`
+
 ## 2021.01.21
 - Add `GenericBox` for generic operations on atoms and volatiles
 

@@ -261,3 +261,9 @@
   "Return true if column add items at head with conj."
   [s]
   (not (or (vector? s) (set? s))))
+
+(defn collection?
+  "Returns true for sequential collections and sets, false for maps."
+  [x]
+  (or (sequential? x)
+      (set? x)))
