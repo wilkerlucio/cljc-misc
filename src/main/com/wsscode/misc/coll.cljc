@@ -238,11 +238,7 @@
      m)))
 
 (defn native-map? [x]
-  #?(:bb   (let [cn (.getName (class x))]
-             (contains? {"clojure.lang.PersistentArrayMap"
-                         "clojure.lang.PersistentHashMap"}
-                        cn))
-     :clj  (or (instance? clojure.lang.PersistentArrayMap x)
+  #?(:clj  (or (instance? clojure.lang.PersistentArrayMap x)
                (instance? clojure.lang.PersistentHashMap x))
      :cljs (or (instance? cljs.core/PersistentArrayMap x)
                (instance? cljs.core/PersistentHashMap x))))
