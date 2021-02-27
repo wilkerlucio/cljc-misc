@@ -1,7 +1,12 @@
 (ns com.wsscode.misc.coll
   (:require
     [clojure.set :as set])
-  #?(:clj
+  #?(:bb
+     (:import
+       (clojure.lang
+         MapEntry))
+
+     :clj
      (:import
        (clojure.lang
          MapEntry
@@ -234,7 +239,11 @@
      m)))
 
 (defn native-map? [x]
-  #?(:clj  (or (instance? clojure.lang.PersistentArrayMap x)
+  #?(:bb   (let [cn (.getName (class x))]
+             (contains? {"clojure.lang.PersistentArrayMap"
+                         "clojure.lang.PersistentHashMap"}
+               cn))
+     :clj  (or (instance? clojure.lang.PersistentArrayMap x)
                (instance? clojure.lang.PersistentHashMap x))
      :cljs (or (instance? cljs.core/PersistentArrayMap x)
                (instance? cljs.core/PersistentHashMap x))))
@@ -254,7 +263,8 @@
 (defn iterator
   "CLJC utility to get an iterator from the collection."
   [coll]
-  #?(:clj  ^Iterator (RT/iter coll)
+  #?(:bb   (throw (ex-info "Unsupported" {}))
+     :clj  ^Iterator (RT/iter coll)
      :cljs ^NodeIterator (-iterator coll)))
 
 (defn coll-append-at-head?
