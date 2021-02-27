@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.02.27
+- cljc-misc is now compatible with Babashka!
+
 ## 2021.02.18
 - Add `collection?` helper to `collections`
 
