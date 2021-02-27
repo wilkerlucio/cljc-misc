@@ -1,7 +1,11 @@
 (ns com.wsscode.misc.coll
   (:require
     [clojure.set :as set])
-  #?(:clj
+  #?(:bb
+     (:import
+       (clojure.lang
+         MapEntry))
+     :clj
      (:import
        (clojure.lang
          MapEntry
@@ -254,7 +258,8 @@
 (defn iterator
   "CLJC utility to get an iterator from the collection."
   [coll]
-  #?(:clj  ^Iterator (RT/iter coll)
+  #?(:bb   (throw (ex-info "Unsupported" {}))
+     :clj  ^Iterator (RT/iter coll)
      :cljs ^NodeIterator (-iterator coll)))
 
 (defn coll-append-at-head?
