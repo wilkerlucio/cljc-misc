@@ -5,7 +5,6 @@
      (:import
        (clojure.lang
          MapEntry))
-
      :clj
      (:import
        (clojure.lang
@@ -242,7 +241,7 @@
   #?(:bb   (let [cn (.getName (class x))]
              (contains? {"clojure.lang.PersistentArrayMap"
                          "clojure.lang.PersistentHashMap"}
-               cn))
+                        cn))
      :clj  (or (instance? clojure.lang.PersistentArrayMap x)
                (instance? clojure.lang.PersistentHashMap x))
      :cljs (or (instance? cljs.core/PersistentArrayMap x)
