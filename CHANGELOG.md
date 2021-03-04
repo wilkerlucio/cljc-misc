@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Enable cljs require macros via require
+
 ## 2021.02.27
 - cljc-misc is now compatible with Babashka!
 
