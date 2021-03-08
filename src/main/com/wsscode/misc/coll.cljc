@@ -4,7 +4,8 @@
   #?(:bb
      (:import
        (clojure.lang
-         MapEntry))
+         MapEntry
+         RT))
      :clj
      (:import
        (clojure.lang
@@ -258,8 +259,7 @@
 (defn iterator
   "CLJC utility to get an iterator from the collection."
   [coll]
-  #?(:bb   (throw (ex-info "Unsupported" {}))
-     :clj  ^Iterator (RT/iter coll)
+  #?(:clj  ^Iterator (RT/iter coll)
      :cljs ^NodeIterator (-iterator coll)))
 
 (defn coll-append-at-head?

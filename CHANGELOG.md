@@ -2,6 +2,7 @@
 
 ## Next
 - Enable cljs require macros via require
+- Enable `iterator` helper on Babashka
 
 ## 2021.02.27
 - cljc-misc is now compatible with Babashka!
