@@ -1,18 +1,10 @@
 (ns com.wsscode.misc.coll
   (:require
     [clojure.set :as set])
-  #?(:bb
+  #?(:clj
      (:import
        (clojure.lang
-         MapEntry
-         RT))
-     :clj
-     (:import
-       (clojure.lang
-         MapEntry
-         RT)
-       (java.util
-         Iterator))))
+         MapEntry))))
 
 (defn distinct-by
   "Returns a lazy sequence of the elements of coll, removing any elements that
@@ -259,8 +251,13 @@
 (defn iterator
   "CLJC utility to get an iterator from the collection."
   [coll]
-  #?(:clj  ^Iterator (RT/iter coll)
-     :cljs ^NodeIterator (-iterator coll)))
+  #?(:clj
+     (if (instance? java.lang.Iterable coll)
+       (.iterator ^java.lang.Iterable coll)
+       (.iterator (seq coll)))
+
+     :cljs
+     (iter coll)))
 
 (defn coll-append-at-head?
   "Return true if column add items at head with conj."
