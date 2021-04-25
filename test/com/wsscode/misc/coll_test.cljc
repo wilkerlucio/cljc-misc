@@ -45,6 +45,10 @@
                           :name "other"}])
          {1 {:id 1, :name "other"}, 2 {:id 2, :name "bar"}})))
 
+(deftest find-first-test
+  (is (= (coll/find-first even? [1 2 3 4])
+         2)))
+
 (deftest sconj-test
   (is (= (coll/sconj nil 42) #{42}))
   (is (set? (coll/sconj nil 42))))

@@ -61,6 +61,13 @@
     {}
     coll))
 
+(defn find-first
+  "Return the first element in coll that returns true for f."
+  [f coll]
+  (->> coll
+       (filter f)
+       first))
+
 (def sconj (fnil conj #{}))
 (def vconj (fnil conj []))
 

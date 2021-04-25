@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.04.25
+- Add `find-first` helper to `collections`
+
 ## 2021.03.09
 - Enable cljs require macros via require
 - Enable `iterator` helper on Babashka
