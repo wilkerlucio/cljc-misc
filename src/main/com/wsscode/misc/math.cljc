@@ -14,3 +14,12 @@
 
 (defn divmod [n d]
   [(floor (/ n d)) (mod n d)])
+
+(defn parse-long [s]
+  #?(:clj (Long/parseLong s)
+     :cljs (js/parseInt s)))
+
+(defn parse-double [s]
+  #?(:clj (Double/parseDouble s)
+     :cljs (js/parseFloat s)))
+

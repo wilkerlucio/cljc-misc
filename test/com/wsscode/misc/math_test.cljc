@@ -18,3 +18,11 @@
 (deftest divmod-test
   (is (= (math/divmod 10 3)
          [3 1])))
+
+(deftest parse-long-test
+  (is (= (math/parse-long "21")
+         21)))
+
+(deftest parse-double-test
+  (is (= (math/parse-long "21.3")
+         21.3)))

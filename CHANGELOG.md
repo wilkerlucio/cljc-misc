@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.04.26
+- Add `parse-long` and `parse-double` to `math`
+
 ## 2021.04.25
 - Add `find-first` helper to `collections`
 
