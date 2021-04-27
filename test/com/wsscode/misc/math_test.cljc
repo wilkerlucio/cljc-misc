@@ -24,5 +24,5 @@
          21)))
 
 (deftest parse-double-test
-  (is (= (math/parse-long "21.3")
+  (is (= (math/parse-double "21.3")
          21.3)))
