@@ -276,3 +276,12 @@
   [x]
   (or (sequential? x)
       (set? x)))
+
+(defn vector-compare
+  "Compare two vectors, this expects the vectors to be ordered."
+  [[value1 & rest1] [value2 & rest2]]
+  (let [result (compare value1 value2)]
+    (cond
+      (not (zero? result)) result
+      (nil? value1) 0
+      :else (recur rest1 rest2))))

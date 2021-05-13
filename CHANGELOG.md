@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.05.12
+- Add `vector-compare` helper to `collections`
+
 ## 2021.04.26
 - Add `parse-long` and `parse-double` to `math`
 

@@ -229,3 +229,15 @@
   (is (true? (coll/collection? #{})))
   (is (true? (coll/collection? (map identity []))))
   (is (false? (coll/collection? {}))))
+
+(deftest vector-compare-test
+  (is (= (coll/vector-compare [0] [1])
+         -1))
+  (is (= (coll/vector-compare [1] [0])
+         1))
+  (is (= (coll/vector-compare [1] [1])
+         0))
+  (is (= (coll/vector-compare [2 0] [2 1])
+         -1))
+  (is (= (coll/vector-compare [2 0 0] [2 1])
+         -1)))
