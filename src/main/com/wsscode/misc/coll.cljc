@@ -266,6 +266,11 @@
      :cljs
      (iter coll)))
 
+(defn iterate-while
+  "Like iterate, but stops when it sees a `nil` value."
+  [f x]
+  (take-while some? (iterate f x)))
+
 (defn coll-append-at-head?
   "Return true if column add items at head with conj."
   [s]

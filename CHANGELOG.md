@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.07.24
+- Add `coll/iterate-while` helper
+
 ## 2021.05.12
 - Add `vector-compare` helper to `collections`
 
