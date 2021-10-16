@@ -25,5 +25,5 @@
 
   test-cljs-once
   (do
-    (shell "shadow-cljs" "compile" "ci")
-    (shell "karma" "start" "--single-run"))}}
+    (shell "npx" "shadow-cljs" "compile" "ci")
+    (shell "npx" "karma" "start" "--single-run"))}}
