@@ -1,5 +1,8 @@
 # Changelog
 
+## 2021.10.16
+- Add `coll/deep-merge` helper
+
 ## 2021.07.24
 - Add `coll/iterate-while` helper
 

@@ -245,3 +245,13 @@
 (deftest iterate-while-test
   (is (= (coll/iterate-while :n {:x 1 :n {:x 2 :n {:x 3}}})
          [{:x 1, :n {:x 2, :n {:x 3}}} {:x 2, :n {:x 3}} {:x 3}])))
+
+(deftest deep-merge-test
+  (is (= (coll/deep-merge {:a 1} {:b 2})
+         {:a 1 :b 2}))
+
+  (is (= (coll/deep-merge {:a {:x 1 :foo "bar"}} {:a {:baz "f" :foo "2"}})
+         {:a {:baz "f" :foo "2" :x 1}}))
+
+  (is (= (coll/deep-merge {:a [{:a 1}]} {:a [{:b 2}]})
+         {:a [{:b 2}]})))
