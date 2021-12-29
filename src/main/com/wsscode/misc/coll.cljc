@@ -239,7 +239,7 @@
      m)))
 
 (defn update-if
-  "Update some key that key is present in the map and value is truthy."
+  "Update some key if that key is present in the map and value is truthy."
   ([m k f]
    (if (get m k)
      (update m k f)
