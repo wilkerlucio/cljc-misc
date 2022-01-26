@@ -1,5 +1,8 @@
 # Changelog
 
+## 2022.01.25
+- Add support for custom key merge in `coll/deep-merge`
+
 ## 2021.10.16
 - Add `coll/deep-merge` helper
 

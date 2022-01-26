@@ -179,6 +179,8 @@
     m
     defaults))
 
+(def ^:dynamic *deep-merge-handlers* {})
+
 (defn deep-merge
   "Recursively merges maps together. If all the maps supplied have nested maps
   under the same keys, these nested maps are merged. Otherwise the value is
@@ -194,10 +196,12 @@
                (let [k  (key e)
                      v' (val e)]
                  (if (contains? m k)
-                   (assoc m k (let [v (get m k)]
-                                (if (and (map? v) (map? v'))
-                                  (deep-merge v v')
-                                  v')))
+                   (if-let [merger (get *deep-merge-handlers* k)]
+                     (assoc m k (merger (get m k) v'))
+                     (assoc m k (let [v (get m k)]
+                                  (if (and (map? v) (map? v'))
+                                    (deep-merge v v')
+                                    v'))))
                    (assoc m k v'))))]
        (reduce merge-entry (or a {}) (seq b)))))
   ([a b & more]

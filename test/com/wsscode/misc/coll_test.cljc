@@ -254,4 +254,11 @@
          {:a {:baz "f" :foo "2" :x 1}}))
 
   (is (= (coll/deep-merge {:a [{:a 1}]} {:a [{:b 2}]})
-         {:a [{:b 2}]})))
+         {:a [{:b 2}]}))
+
+  (is (= (coll/deep-merge {:a [{:a 1}]} {:a [{:b 2}]})
+         {:a [{:b 2}]}))
+
+  (binding [coll/*deep-merge-handlers* {:v into}]
+    (is (= (coll/deep-merge {:v [{:a 1}]} {:v [{:b 2}]})
+           {:v [{:a 1} {:b 2}]}))))
