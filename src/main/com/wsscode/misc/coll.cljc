@@ -181,12 +181,46 @@
 
 (def ^:dynamic *deep-merge-handlers* {})
 
+;(s/def ::merge-self #{::merge-replace ::merge-into})
+
+(defn value-merger [x]
+  (some-> x meta ::merge-with))
+
+(defn keep-current "Merge util to keep the value from the left side." [a _] a)
+(defn keep-new "Merge util to keep the value from the right side." [_ b] b)
+
 (defn deep-merge
   "Recursively merges maps together. If all the maps supplied have nested maps
-  under the same keys, these nested maps are merged. Otherwise the value is
-  overwritten, as in `clojure.core/merge`.
+  under the same keys, these nested maps are merged.
 
-  Copied from Medley library."
+  A custom merge strategy may be configured for specific keys, to do so you need to
+  bind the value of *deep-merge-handlers*, the keys are the keywords and the values
+  are functions to handle the merge of that key.
+
+      (binding [*deep-merge-handlers* {:foo +}]
+        (deep-merge {:foo 1} {:foo 2}))
+      ; => {:foo 3}
+
+  Another way to control the merge of values is to set some metadata to control the
+  merge process (notice it only applies for types that support meta like maps and vectors,
+  but not for keywords or numbers for example).
+
+      (deep-merge {:list [1 2 3]} ^{::merge-with into} {:list [:a :b]})
+      ; => {:list [1 2 3 :a :b]}
+
+  The meta may go in the left or side of the merge, the right side has higher priority.
+
+  Note that meta mergers have higher priority than merge handlers.
+
+  Here is the merger pick order for clarity:
+
+  1. Value merger from meta at new value
+  2. Value merger from meta at current value
+  3. Merge key handler
+  4. Deep merge (in case both values are maps)
+  5. Keep the new value (as in `clojure.core/merge`)
+
+  Forked from Medley library."
   {:arglists '([& maps])}
   ([])
   ([a] a)
@@ -196,12 +230,14 @@
                (let [k  (key e)
                      v' (val e)]
                  (if (contains? m k)
-                   (if-let [merger (get *deep-merge-handlers* k)]
-                     (assoc m k (merger (get m k) v'))
-                     (assoc m k (let [v (get m k)]
-                                  (if (and (map? v) (map? v'))
-                                    (deep-merge v v')
-                                    v'))))
+                   (let [v      (get m k)
+                         merger (or (value-merger v')
+                                    (value-merger v)
+                                    (get *deep-merge-handlers* k)
+                                    (if (and (map? v) (map? v'))
+                                      deep-merge)
+                                    keep-new)]
+                     (assoc m k (merger (get m k) v')))
                    (assoc m k v'))))]
        (reduce merge-entry (or a {}) (seq b)))))
   ([a b & more]

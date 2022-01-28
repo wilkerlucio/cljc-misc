@@ -1,5 +1,8 @@
 # Changelog
 
+## 2022.01.28
+- Add support for custom merge via metadata in `coll/deep-merge`
+
 ## 2022.01.25
 - Add support for custom key merge in `coll/deep-merge`
 

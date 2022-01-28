@@ -1,7 +1,8 @@
 (ns com.wsscode.misc.coll-test
   (:require
     [clojure.test :refer [deftest is are run-tests testing]]
-    [com.wsscode.misc.coll :as coll]))
+    [com.wsscode.misc.coll :as coll]
+    [clojure.set :as set]))
 
 (deftest distinct-by-test
   (is (= (coll/distinct-by :id
@@ -259,6 +260,26 @@
   (is (= (coll/deep-merge {:a [{:a 1}]} {:a [{:b 2}]})
          {:a [{:b 2}]}))
 
-  (binding [coll/*deep-merge-handlers* {:v into}]
-    (is (= (coll/deep-merge {:v [{:a 1}]} {:v [{:b 2}]})
-           {:v [{:a 1} {:b 2}]}))))
+  (testing "deep merge handlers"
+    (binding [coll/*deep-merge-handlers* {:v into}]
+      (is (= (coll/deep-merge {:v [{:a 1}]} {:v [{:b 2}]})
+             {:v [{:a 1} {:b 2}]}))))
+
+  (testing "meta controls"
+    (testing "replace"
+      (is (= (coll/deep-merge
+               {:val {:a 1}}
+               {:val ^{::coll/merge-with coll/keep-new} {:b 2}})
+             {:val {:b 2}})))
+
+    (testing "into"
+      (is (= (coll/deep-merge
+               {:list [1 2 3]}
+               {:list ^{::coll/merge-with into} [:a :b]})
+             {:list [1 2 3 :a :b]})))
+
+    (testing "with"
+      (is (= (coll/deep-merge
+               {:list #{:a 1}}
+               {:list ^{::coll/merge-with set/union} #{:b 2}})
+             {:list #{:a :b 1 2}})))))
