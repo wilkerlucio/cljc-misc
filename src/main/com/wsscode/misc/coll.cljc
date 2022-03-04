@@ -181,7 +181,7 @@
 
 (def ^:dynamic *deep-merge-handlers* {})
 
-;(s/def ::merge-self #{::merge-replace ::merge-into})
+;; (s/def ::merge-self #{::merge-replace ::merge-into})
 
 (defn value-merger [x]
   (some-> x meta ::merge-with))

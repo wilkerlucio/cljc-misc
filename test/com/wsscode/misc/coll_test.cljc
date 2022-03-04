@@ -1,8 +1,8 @@
 (ns com.wsscode.misc.coll-test
   (:require
+    [clojure.set :as set]
     [clojure.test :refer [deftest is are run-tests testing]]
-    [com.wsscode.misc.coll :as coll]
-    [clojure.set :as set]))
+    [com.wsscode.misc.coll :as coll]))
 
 (deftest distinct-by-test
   (is (= (coll/distinct-by :id
@@ -189,12 +189,12 @@
   (is (= (coll/restore-order [{:my.entity/id 1}
                               {:my.entity/id 2}
                               {:my.entity/id 3}]
-           :my.entity/id
-           [{:my.entity/id    3
-             :my.entity/color :my.entity.color/green}
-            {:my.entity/id    1
-             :my.entity/color :my.entity.color/purple}]
-           (fn [x] (assoc x :my.entity/color nil)))
+                             :my.entity/id
+                             [{:my.entity/id    3
+                               :my.entity/color :my.entity.color/green}
+                              {:my.entity/id    1
+                               :my.entity/color :my.entity.color/purple}]
+                             (fn [x] (assoc x :my.entity/color nil)))
          [{:my.entity/id    1
            :my.entity/color :my.entity.color/purple}
           {:my.entity/id    2
@@ -211,7 +211,7 @@
                 (coll/restore-order2 [{:my.entity/id 1}
                                       {:my.entity/id 2}
                                       {:my.entity/id 3}]
-                  :my.entity/id))
+                                     :my.entity/id))
            [{:my.entity/id    1
              :my.entity/color :my.entity.color/purple}
             nil
@@ -225,8 +225,8 @@
                 (coll/restore-order2 [{:my.entity/id 1}
                                       {:my.entity/id 2}
                                       {:my.entity/id 3}]
-                  :my.entity/id
-                  (fn [x] (assoc x :my.entity/color nil))))
+                                     :my.entity/id
+                                     (fn [x] (assoc x :my.entity/color nil))))
            [{:my.entity/id    1
              :my.entity/color :my.entity.color/purple}
             {:my.entity/id    2
