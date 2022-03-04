@@ -338,8 +338,10 @@
 
 (defn restore-order2
   "Same functionality as restore-order, but fixes the arguments order to make
-  it easier to thread with a default-fn."
-  ([inputs key items] (restore-order inputs key items))
+  it easier to thread with a default-fn.
+
+  Also, it returns nil for not found items instead of a map with the key."
+  ([inputs key items] (restore-order inputs key items (constantly nil)))
   ([inputs key default-fn items] (restore-order inputs key items default-fn)))
 
 (defn iterator

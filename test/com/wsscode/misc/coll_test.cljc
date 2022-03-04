@@ -203,21 +203,36 @@
            :my.entity/color :my.entity.color/green}])))
 
 (deftest restore-order2-test
-  (is (= (->> [{:my.entity/id    3
-                :my.entity/color :my.entity.color/green}
-               {:my.entity/id    1
-                :my.entity/color :my.entity.color/purple}]
-              (coll/restore-order2 [{:my.entity/id 1}
-                                    {:my.entity/id 2}
-                                    {:my.entity/id 3}]
-                :my.entity/id
-                (fn [x] (assoc x :my.entity/color nil))))
-         [{:my.entity/id    1
-           :my.entity/color :my.entity.color/purple}
-          {:my.entity/id    2
-           :my.entity/color nil}
-          {:my.entity/id    3
-           :my.entity/color :my.entity.color/green}])))
+  (testing "return nil for not found items by default"
+    (is (= (->> [{:my.entity/id    3
+                  :my.entity/color :my.entity.color/green}
+                 {:my.entity/id    1
+                  :my.entity/color :my.entity.color/purple}]
+                (coll/restore-order2 [{:my.entity/id 1}
+                                      {:my.entity/id 2}
+                                      {:my.entity/id 3}]
+                  :my.entity/id))
+           [{:my.entity/id    1
+             :my.entity/color :my.entity.color/purple}
+            nil
+            {:my.entity/id    3
+             :my.entity/color :my.entity.color/green}])))
+  (testing "arity that works with ->> and default-fn"
+    (is (= (->> [{:my.entity/id    3
+                  :my.entity/color :my.entity.color/green}
+                 {:my.entity/id    1
+                  :my.entity/color :my.entity.color/purple}]
+                (coll/restore-order2 [{:my.entity/id 1}
+                                      {:my.entity/id 2}
+                                      {:my.entity/id 3}]
+                  :my.entity/id
+                  (fn [x] (assoc x :my.entity/color nil))))
+           [{:my.entity/id    1
+             :my.entity/color :my.entity.color/purple}
+            {:my.entity/id    2
+             :my.entity/color nil}
+            {:my.entity/id    3
+             :my.entity/color :my.entity.color/green}]))))
 
 (deftest conj-at-index-test
   (is (= (coll/conj-at-index [:a :b] 0 :c)
