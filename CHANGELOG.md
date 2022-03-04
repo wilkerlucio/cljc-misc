@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 2022.03.04
 - Add `coll/restore-order2`, which has a better interface to use with `->>`
 
 ## 2022.01.28
