@@ -189,12 +189,29 @@
   (is (= (coll/restore-order [{:my.entity/id 1}
                               {:my.entity/id 2}
                               {:my.entity/id 3}]
-                             :my.entity/id
-                             [{:my.entity/id    3
-                               :my.entity/color :my.entity.color/green}
-                              {:my.entity/id    1
-                               :my.entity/color :my.entity.color/purple}]
-                             (fn [x] (assoc x :my.entity/color nil)))
+           :my.entity/id
+           [{:my.entity/id    3
+             :my.entity/color :my.entity.color/green}
+            {:my.entity/id    1
+             :my.entity/color :my.entity.color/purple}]
+           (fn [x] (assoc x :my.entity/color nil)))
+         [{:my.entity/id    1
+           :my.entity/color :my.entity.color/purple}
+          {:my.entity/id    2
+           :my.entity/color nil}
+          {:my.entity/id    3
+           :my.entity/color :my.entity.color/green}])))
+
+(deftest restore-order2-test
+  (is (= (->> [{:my.entity/id    3
+                :my.entity/color :my.entity.color/green}
+               {:my.entity/id    1
+                :my.entity/color :my.entity.color/purple}]
+              (coll/restore-order2 [{:my.entity/id 1}
+                                    {:my.entity/id 2}
+                                    {:my.entity/id 3}]
+                :my.entity/id
+                (fn [x] (assoc x :my.entity/color nil))))
          [{:my.entity/id    1
            :my.entity/color :my.entity.color/purple}
           {:my.entity/id    2

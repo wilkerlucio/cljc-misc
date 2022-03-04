@@ -308,7 +308,24 @@
                (instance? cljs.core/PersistentHashMap x))))
 
 (defn restore-order
-  "Sorts output list to match input list order."
+  "Sorts output list to match input list order.
+
+      (coll/restore-order
+        [{:id 1} {:id 2} {:id 3}]
+        :id
+        [{:id 4 :x \"a\"}
+         {:id 1 :x \"b\"}
+         {:id 3 :x \"c\"}
+         {:id 2 :x \"d\"}])
+
+      => [{:id 1 :x \"b\"}
+          {:id 2 :x \"d\"}
+          {:id 3 :x \"c\"}]
+
+   Note it will also remove items that don't match anything in the original items
+   list.
+
+   In case the items contains a matching key more than once, the last one will be taken."
   ([inputs key items]
    (restore-order inputs key items #(hash-map key (get % key))))
   ([inputs key items default-fn]
@@ -318,6 +335,12 @@
                   (or (get index (get input key))
                       (default-fn input))))
            inputs))))
+
+(defn restore-order2
+  "Same functionality as restore-order, but fixes the arguments order to make
+  it easier to thread with a default-fn."
+  ([inputs key items] (restore-order inputs key items))
+  ([inputs key default-fn items] (restore-order inputs key items default-fn)))
 
 (defn iterator
   "CLJC utility to get an iterator from the collection."

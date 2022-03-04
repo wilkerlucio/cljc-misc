@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add `coll/restore-order2` which has a better interface to use with `->>`
+
 ## 2022.01.28
 - Add support for custom merge via metadata in `coll/deep-merge`
 
