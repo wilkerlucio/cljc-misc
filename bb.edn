@@ -10,6 +10,15 @@
   setup-hooks
   tasks/setup-git-hooks
 
+  format-check
+  {:task (apply tasks/cljstyle "check" source-paths)}
+
+  format-fix
+  {:task (apply tasks/cljstyle "fix" source-paths)}
+
+  lint
+  {:task (tasks/clj-kondo-lint source-paths)}
+
   release
   {:doc  "Release to Clojars"
    :task (do
