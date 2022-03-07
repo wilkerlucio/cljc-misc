@@ -76,7 +76,7 @@
   [v idx x]
   (let [before (subvec v 0 idx)
         after  (subvec v idx (count v))]
-    (into [] (concat before [x] after))))
+    (into (with-meta [] (meta v)) (concat before [x] after))))
 
 (defn index-of
   "Find the index of element x in coll. Return nil if element is not found."
@@ -111,7 +111,7 @@
     (map-keys #(str/replace (name %) \"_\" \"-\") {\"foo_bar\" 1}) => {\"foo-bar\" 1}
   "
   [f m]
-  (into {} (map (fn [x] (make-map-entry (f (key x)) (val x)))) m))
+  (into (with-meta {} (meta m)) (map (fn [x] (make-map-entry (f (key x)) (val x)))) m))
 
 (defn map-vals
   "Map over the given hash-map vals.
@@ -120,23 +120,23 @@
     (map-vals inc {:a 1 :b 2})
   "
   [f m]
-  (into {} (map (fn [x] (make-map-entry (key x) (f (val x))))) m))
+  (into (with-meta {} (meta m)) (map (fn [x] (make-map-entry (key x) (f (val x))))) m))
 
 (defn filter-keys
   [f m]
-  (into {} (filter (comp f key)) m))
+  (into (with-meta {} (meta m)) (filter (comp f key)) m))
 
 (defn filter-vals
   [f m]
-  (into {} (filter (comp f val)) m))
+  (into (with-meta {} (meta m)) (filter (comp f val)) m))
 
 (defn remove-keys
   [f m]
-  (into {} (remove (comp f key)) m))
+  (into (with-meta {} (meta m)) (remove (comp f key)) m))
 
 (defn remove-vals
   [f m]
-  (into {} (remove (comp f val)) m))
+  (into (with-meta {} (meta m)) (remove (comp f val)) m))
 
 (defn keys-set
   "Return the map keys, as a set. This also checks if the entry is a map, otherwise

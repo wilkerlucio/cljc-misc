@@ -1,5 +1,8 @@
 # Changelog
 
+## 2022.03.07
+- Map helpers at `coll` and `conj-at-index` will keep the meta from the original data structure
+
 ## 2022.03.04
 - Add `coll/restore-order2`, which has a better interface to use with `->>`
 
