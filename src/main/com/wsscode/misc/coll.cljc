@@ -322,17 +322,29 @@
           {:id 2 :x \"d\"}
           {:id 3 :x \"c\"}]
 
+      (coll/restore-order
+        [{:id 1, :id2 1} {:id 2, :id2 0} {:id 3, :id2 1}]
+        #(select-keys % [:id :id2])
+        [{:id 4 :id2 0 :x \"a\"}
+         {:id 1 :id2 1 :x \"b\"}
+         {:id 3 :id2 1 :x \"c\"}
+         {:id 2 :id2 0 :x \"d\"}])
+
+      => [{:id 1 :id2 1 :x \"b\"}
+          {:id 2 :id2 0 :x \"d\"}
+          {:id 3 :id2 1 :x \"c\"}]
+
    Note it will also remove items that don't match anything in the original items
    list.
 
    In case the items contains a matching key more than once, the last one will be taken."
   ([inputs key items]
-   (restore-order inputs key items #(hash-map key (get % key))))
+   (restore-order inputs key items (if (ident? key) #(hash-map key (get % key)) key)))
   ([inputs key items default-fn]
    (let [index (index-by key items)]
      (into []
            (map (fn [input]
-                  (or (get index (get input key))
+                  (or (get index (key input))
                       (default-fn input))))
            inputs))))
 
