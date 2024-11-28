@@ -186,6 +186,25 @@
           {:my.entity/id 2}
           {:my.entity/id    3
            :my.entity/color :my.entity.color/green}]))
+  (is (= (coll/restore-order
+           [{:my.entity/id 1, :my.entity/id2 1}
+            {:my.entity/id 2, :my.entity/id2 0}
+            {:my.entity/id 3, :my.entity/id2 1}]
+           #(select-keys % [:my.entity/id :my.entity/id2])
+           [{:my.entity/id    3
+             :my.entity/id2   1
+             :my.entity/color :my.entity.color/green}
+            {:my.entity/id    1
+             :my.entity/id2   1
+             :my.entity/color :my.entity.color/purple}])
+         [{:my.entity/id    1
+           :my.entity/id2   1
+           :my.entity/color :my.entity.color/purple}
+          {:my.entity/id  2
+           :my.entity/id2 0}
+          {:my.entity/id    3
+           :my.entity/id2   1
+           :my.entity/color :my.entity.color/green}]))
   (is (= (coll/restore-order [{:my.entity/id 1}
                               {:my.entity/id 2}
                               {:my.entity/id 3}]
@@ -200,6 +219,26 @@
           {:my.entity/id    2
            :my.entity/color nil}
           {:my.entity/id    3
+           :my.entity/color :my.entity.color/green}]))
+  (is (= (coll/restore-order [{:my.entity/id 1, :my.entity/id2 1}
+                              {:my.entity/id 2, :my.entity/id2 0}
+                              {:my.entity/id 3, :my.entity/id2 1}]
+                             #(select-keys % [:my.entity/id :my.entity/id2])
+                             [{:my.entity/id    3
+                               :my.entity/id2   1
+                               :my.entity/color :my.entity.color/green}
+                              {:my.entity/id    1
+                               :my.entity/id2   1
+                               :my.entity/color :my.entity.color/purple}]
+                             (fn [x] (assoc x :my.entity/color nil)))
+         [{:my.entity/id    1
+           :my.entity/id2   1
+           :my.entity/color :my.entity.color/purple}
+          {:my.entity/id    2
+           :my.entity/id2   0
+           :my.entity/color nil}
+          {:my.entity/id    3
+           :my.entity/id2   1
            :my.entity/color :my.entity.color/green}])))
 
 (deftest restore-order2-test
@@ -216,6 +255,23 @@
              :my.entity/color :my.entity.color/purple}
             nil
             {:my.entity/id    3
+             :my.entity/color :my.entity.color/green}]))
+    (is (= (->> [{:my.entity/id    3
+                  :my.entity/id2   1
+                  :my.entity/color :my.entity.color/green}
+                 {:my.entity/id    1
+                  :my.entity/id2   1
+                  :my.entity/color :my.entity.color/purple}]
+                (coll/restore-order2 [{:my.entity/id 1, :my.entity/id2 1}
+                                      {:my.entity/id 2, :my.entity/id2 0}
+                                      {:my.entity/id 3, :my.entity/id2 1}]
+                                     #(select-keys % [:my.entity/id :my.entity/id2])))
+           [{:my.entity/id    1
+             :my.entity/id2   1
+             :my.entity/color :my.entity.color/purple}
+            nil
+            {:my.entity/id    3
+             :my.entity/id2   1
              :my.entity/color :my.entity.color/green}])))
   (testing "arity that works with ->> and default-fn"
     (is (= (->> [{:my.entity/id    3
@@ -232,6 +288,26 @@
             {:my.entity/id    2
              :my.entity/color nil}
             {:my.entity/id    3
+             :my.entity/color :my.entity.color/green}]))
+    (is (= (->> [{:my.entity/id    3
+                  :my.entity/id2   1
+                  :my.entity/color :my.entity.color/green}
+                 {:my.entity/id    1
+                  :my.entity/id2   1
+                  :my.entity/color :my.entity.color/purple}]
+                (coll/restore-order2 [{:my.entity/id 1, :my.entity/id2 1}
+                                      {:my.entity/id 2, :my.entity/id2 0}
+                                      {:my.entity/id 3, :my.entity/id2 1}]
+                                     #(select-keys % [:my.entity/id :my.entity/id2])
+                                     (fn [x] (assoc x :my.entity/color nil))))
+           [{:my.entity/id    1
+             :my.entity/id2   1
+             :my.entity/color :my.entity.color/purple}
+            {:my.entity/id    2
+             :my.entity/id2   0
+             :my.entity/color nil}
+            {:my.entity/id    3
+             :my.entity/id2   1
              :my.entity/color :my.entity.color/green}]))))
 
 (deftest conj-at-index-test
