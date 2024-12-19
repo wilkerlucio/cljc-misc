@@ -1,5 +1,8 @@
 # Changelog
 
+## 2024.12.18
+- `coll/restore-order` works with composite key fn
+
 ## 2022.03.07
 - Map helpers at `coll` and `conj-at-index` will keep the meta from the original data structure
 
